@@ -340,8 +340,14 @@ def album_info(release):
 
             track_infos.append(ti)
 
+    album = release['title']
+    if release.get('alias-list'):
+        albumalias = _preferred_alias(release['alias-list'])
+        if albumalias:
+            album = albumalias['alias']
+
     info = beets.autotag.hooks.AlbumInfo(
-        album=release['title'],
+        album=album,
         album_id=release['id'],
         artist=artist_name,
         artist_id=release['artist-credit'][0]['artist']['id'],
